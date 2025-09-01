@@ -8,6 +8,33 @@ Hemos recopilado un enorme conjunto de datos de 651 191 URL, de las cuales 428�
 
 Para recopilar URL benignas, de phishing, malware y desfiguración, utilizamos el conjunto de datos de URL (ISCX-URL-2016). Para aumentar las URL de phishing y malware, utilizamos el conjunto de datos de la lista negra de dominios de malware. Aumentamos las URL benignas utilizando el repositorio Git de Faizan. Finalmente, aumentamos el número de URL de phishing utilizando los conjuntos de datos Phishtank y PhishStorm. Como ya hemos mencionado, estos conjuntos de datos se recopilan de diferentes fuentes. Primero, recopilamos las URL de diferentes fuentes en un marco de datos independiente y, finalmente, las fusionamos para conservar únicamente las URL y su tipo de clase.
 
+El propósito de este proyecto es entrenar y comparar diversos modelos de Machine Learning para predecir si una URL es maliciosa, basándose en características estructurales extraídas de la misma. El dataset fue obtenido de Kaggle (Malicious and Benign URL Dataset, 2020).
+
+## Limpieza y transformación de datos
+
+Se entrenaron y evaluaron los siguientes algoritmos de Machine Learning:
+
+### Árbol de Decisión
+Construye una estructura jerárquica en forma de árbol donde cada nodo representa una decisión basada en características. Es interpretable, aunque puede sobreajustar los datos (Quinlan, 1986).
+
+### Random Forest
+Método de ensamble basado en múltiples árboles de decisión, combinados mediante votación. Reduce el sobreajuste y mejora la precisión (Breiman, 2001).
+
+### AdaBoost
+Algoritmo de boosting que combina clasificadores débiles, ajustando los pesos de los ejemplos mal clasificados en cada iteración (Freund & Schapire, 1997).
+
+### K-Nearest Neighbors (KNN)
+Clasificador basado en distancia: asigna una clase según las etiquetas de los k vecinos más cercanos (Cover & Hart, 1967).
+
+### Stochastic Gradient Descent (SGD) Classifier
+Clasificador lineal entrenado con descenso de gradiente estocástico. Escalable y eficiente en datos de gran tamaño y dispersos.
+
+### Extra Trees (Extremely Randomized Trees)
+Variante de Random Forest que introduce mayor aleatoriedad en los puntos de división, mejorando velocidad y reduciendo varianza (Geurts et al., 2006).
+
+### Naive Bayes Gaussiano
+Clasificador probabilístico basado en el teorema de Bayes. Asume independencia entre variables y distribución gaussiana de características continuas (Zhang, 2004).
+
 ## Conclusiones
 
 ### Tamaño y diversidad
@@ -45,3 +72,17 @@ PhishStorm. (s.f.). PhishStorm Dataset. Recuperado de https://www.phishstorm.com
 Malware Blacklist. (s.f.). Malware Domain List. Recuperado de https://www.malwaredomainlist.com/
 
 Faizan, M. (s.f.). Repositorio de URLs benignas. GitHub. Recuperado de https://github.com/faizan-url-repo
+
+Breiman, L. (2001). Random forests. Machine Learning, 45(1), 5–32. https://doi.org/10.1023/A:1010933404324
+
+Cover, T., & Hart, P. (1967). Nearest neighbor pattern classification. IEEE Transactions on Information Theory, 13(1), 21–27. https://doi.org/10.1109/TIT.1967.1053964
+
+Freund, Y., & Schapire, R. E. (1997). A decision-theoretic generalization of on-line learning and an application to boosting. Journal of Computer and System Sciences, 55(1), 119–139. https://doi.org/10.1006/jcss.1997.1504
+
+Geurts, P., Ernst, D., & Wehenkel, L. (2006). Extremely randomized trees. Machine Learning, 63, 3–42. https://doi.org/10.1007/s10994-006-6226-1
+
+Kaggle. (2020). Malicious and Benign URL Dataset. Recuperado de https://www.kaggle.com/datasets/sid321axn/malicious-urls-dataset
+
+Quinlan, J. R. (1986). Induction of decision trees. Machine Learning, 1(1), 81–106. https://doi.org/10.1007/BF00116251
+
+Zhang, H. (2004). The optimality of Naive Bayes. En Proceedings of the Seventeenth International Florida Artificial Intelligence Research Society Conference (pp. 562–567). AAAI Press.
