@@ -12,6 +12,38 @@ El propósito de este proyecto es entrenar y comparar diversos modelos de Machin
 
 ## Limpieza y transformación de datos
 
+Los siguientes pasos de preprocesamiento fueron aplicados:
+
+1.  Normalización de URLs
+
+Eliminación del prefijo www., considerado como subdominio.
+
+2. Mapeo de categorías
+
+Conversión de etiquetas de texto a valores numéricos (benign = 0, defacement = 1, phishing = 2, malware = 3).
+
+3. Ingeniería de características
+
+Longitud de la URL.
+
+Conteo de caracteres especiales (@, ?, -, =, ., //, etc.).
+
+Verificación de formatos anómalos (inconsistencias entre hostname y subdominio).
+
+Presencia del protocolo seguro HTTPS.
+
+Conteo de dígitos y letras.
+
+Detección de servicios de acortadores de URLs (p. ej. bit.ly, tinyurl, ow.ly).
+
+Detección de direcciones IP incrustadas en la URL.
+
+4. Manejo de valores faltantes
+
+Se descartaron o corrigieron entradas inválidas en la extracción de dominios.
+
+## Modelos entrenados
+
 Se entrenaron y evaluaron los siguientes algoritmos de Machine Learning:
 
 ### Árbol de Decisión
@@ -60,6 +92,20 @@ Cada tipo de URL se recopiló por separado y luego se fusionó en un marco de da
 Las etiquetas claras permiten entrenar modelos supervisados multiclase.
 
 La combinación de fuentes especializadas para phishing y malware asegura que las clases minoritarias sean relevantes y realistas.
+
+Se entrenaron y evaluaron distintos modelos de clasificación.  
+
+| Modelo                   | Descripción breve                                                  | Exactitud |
+|---------------------------|-------------------------------------------------------------------|-----------|
+| Decision Tree Classifier  | Árbol de decisión que divide los datos en función de reglas lógicas | 0.909     |
+| Random Forest Classifier  | Ensamble de múltiples árboles de decisión con votación mayoritaria  | **0.915** |
+| AdaBoost Classifier       | Boosting que combina clasificadores débiles para mejorar el rendimiento | 0.820     |
+| KNeighbors Classifier     | Clasificación basada en la cercanía con los vecinos más próximos   | 0.890     |
+| SGD Classifier            | Modelo lineal optimizado con descenso de gradiente estocástico     | 0.805     |
+| Extra Trees Classifier    | Ensamble de árboles extremadamente aleatorios                     | 0.915     |
+| Gaussian NB               | Clasificador probabilístico basado en la distribución normal       | 0.790     |
+
+![Grafico de modelos de clasificacion vs su exactiduda](images/modelados.PNG)  
 
 # Bibliografía
 
