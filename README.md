@@ -14,31 +14,31 @@ El propósito de este proyecto es entrenar y comparar diversos modelos de Machin
 
 Los siguientes pasos de preprocesamiento fueron aplicados:
 
-1.  Normalización de URLs
+### 1.  Normalización de URLs
 
 Eliminación del prefijo www., considerado como subdominio.
 
-2. Mapeo de categorías
+### 2. Mapeo de categorías
 
 Conversión de etiquetas de texto a valores numéricos (benign = 0, defacement = 1, phishing = 2, malware = 3).
 
-3. Ingeniería de características
+### 3. Ingeniería de características
 
-Longitud de la URL.
+- Longitud de la URL.
 
-Conteo de caracteres especiales (@, ?, -, =, ., //, etc.).
+- Conteo de caracteres especiales (@, ?, -, =, ., //, etc.).
 
-Verificación de formatos anómalos (inconsistencias entre hostname y subdominio).
+- Verificación de formatos anómalos (inconsistencias entre hostname y subdominio).
 
-Presencia del protocolo seguro HTTPS.
+- Presencia del protocolo seguro HTTPS.
 
-Conteo de dígitos y letras.
+- Conteo de dígitos y letras.
 
-Detección de servicios de acortadores de URLs (p. ej. bit.ly, tinyurl, ow.ly).
+- Detección de servicios de acortadores de URLs (p. ej. bit.ly, tinyurl, ow.ly).
 
-Detección de direcciones IP incrustadas en la URL.
+- Detección de direcciones IP incrustadas en la URL.
 
-4. Manejo de valores faltantes
+### 4. Manejo de valores faltantes
 
 Se descartaron o corrigieron entradas inválidas en la extracción de dominios.
 
@@ -82,6 +82,8 @@ Phishing: 94.111 (~14,4%)
 
 Malware: 32.520 (~5%)
 
+![Grafico de distribucion de ciberamenazas](images/amenazas.PNG)  
+
 Se evidencia un desbalance importante, con predominio de URLs benignas y una proporción reducida de malware, lo que sugiere la necesidad de técnicas de balanceo para entrenar modelos robustos.
 
 ### Preparación del dataset
@@ -98,7 +100,7 @@ Se entrenaron y evaluaron distintos modelos de clasificación.
 | Modelo                   | Descripción breve                                                  | Exactitud |
 |---------------------------|-------------------------------------------------------------------|-----------|
 | Decision Tree Classifier  | Árbol de decisión que divide los datos en función de reglas lógicas | 0.909     |
-| Random Forest Classifier  | Ensamble de múltiples árboles de decisión con votación mayoritaria  | **0.915** |
+| Random Forest Classifier  | Ensamble de múltiples árboles de decisión con votación mayoritaria  | 0.915 |
 | AdaBoost Classifier       | Boosting que combina clasificadores débiles para mejorar el rendimiento | 0.820     |
 | KNeighbors Classifier     | Clasificación basada en la cercanía con los vecinos más próximos   | 0.890     |
 | SGD Classifier            | Modelo lineal optimizado con descenso de gradiente estocástico     | 0.805     |
@@ -106,6 +108,23 @@ Se entrenaron y evaluaron distintos modelos de clasificación.
 | Gaussian NB               | Clasificador probabilístico basado en la distribución normal       | 0.790     |
 
 ![Grafico de modelos de clasificacion vs su exactiduda](images/modelados.PNG)  
+
+Los **mejores modelos** fueron **Random Forest** y **Extra Trees**, ambos con una exactitud cercana al **91.5%**.  
+- El modelo **Decision Tree** también tuvo un desempeño sólido (90.9%), pero sin llegar al nivel de los ensambles.  
+- Los métodos lineales (**SGD**) y probabilísticos (**Gaussian NB**) presentaron resultados más bajos, con menos del 81% de exactitud.  
+- Esto sugiere que **los modelos de ensamble basados en árboles son los más adecuados para este dataset**, ya que logran capturar mejor la complejidad de los datos.  
+
+- En cuanto a la distribución de datos, se registraron los siguientes valores:  
+
+  | Tipo de tráfico | Cantidad |
+  |-----------------|----------|
+  | Benign          | 428,103  |
+  | Defacement      | 96,457   |
+  | Phishing        | 94,111   |
+  | Malware         | 32,520   |
+
+- Se observa un **alto desbalance de clases**, con más de **428k registros benignos** frente a ~223k registros de ataques combinados.  
+- Esto implica que los modelos deben ajustarse (por ejemplo, usando **técnicas de balanceo**) para evitar sesgos hacia la clase mayoritaria.  
 
 # Bibliografía
 
